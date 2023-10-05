@@ -12,7 +12,7 @@ const BudgetControl = ({budget}) => {
             <div>
                 <p>Grafica aquí</p>
             </div>
-            <div className="container-budget">
+            <div className="content-budget">
                 <p>
                     <span>Budget:</span> {format(budget)}
                 </p>
