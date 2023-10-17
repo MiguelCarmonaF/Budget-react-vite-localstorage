@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Modal from './components/Modal';
 import { generateID } from './helpers'; 
 import IconoNuevoGasto from './img/nuevo-gasto.svg'
+import ListSpent from './components/ListSpent';
 
 function App() {
   const [budget, setBudget] = useState(0);
@@ -21,25 +22,35 @@ function App() {
 
   const keepSpent = spent => {
     spent.id = generateID();
-    setSpents([...spents, spent])
+    spent.date = Date.now();
+    setSpents([...spents, spent,])
   }
 
   return (
-    <div>
+    <div className= {modal ? 'pin' : ''} >
       <Header 
+        spents = {spents}
         budget = {budget}
         setBudget = {setBudget}
         isValid = {isValid}
         setIsValid = {setIsValid}
       />
       {isValid && (
-        <div className="new-spent">
-          <img
-            src={IconoNuevoGasto}
-            alt="Icon New Spent"
-            onClick={handleNewSpent}
-          />
-        </div>
+        <>
+          <main>
+            <ListSpent 
+              spents={spents}
+
+            />
+          </main>
+          <div className="new-spent">
+            <img
+              src={IconoNuevoGasto}
+              alt="Icon New Spent"
+              onClick={handleNewSpent}
+            />
+          </div>
+        </>
       )}
 
       {modal && <Modal 

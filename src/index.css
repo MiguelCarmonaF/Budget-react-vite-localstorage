@@ -281,3 +281,74 @@ header h1 {
     color: #fff;
     font-size: 2.4rem;
 }
+
+.list-spent {
+    margin-top: 5rem;
+}
+
+.list-spent h2{
+    color: #64748b;
+    font-weight: 900;
+}
+
+.spent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    width: 100%
+}
+
+.content-spent {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.content-spent img{
+    width: 10rem;
+}
+
+.description-spent p{
+    margin: 0 0 0.3rem 0;
+    margin-bottom: 1rem;
+}
+
+.description-spent .category{
+    color:#64748b;
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.description-spent .name-spent {
+    color:#64748b;
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+
+.description-spent .name-spent:hover {
+    cursor: pointer;
+}
+
+.description-spent .spent-date{
+    font-size: 1.8rem;
+    font-weight: 900;
+    color:#64748b
+}
+
+.description-spent .spent-date span{
+    font-weight: 400;
+}
+
+.quantity-spent {
+    font-size: 2.4rem;
+    color: #000000;
+    font-weight: 900;
+}
+
+.pin {
+    overflow: hidden;
+    height: 100vh;
+}

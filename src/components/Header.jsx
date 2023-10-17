@@ -1,7 +1,7 @@
 import NewBudget from "./NewBudget"
 import BudgetControl from "./BudgetControl"
 
-const Header = ({budget, setBudget, isValid, setIsValid}) => {
+const Header = ({budget, setBudget, isValid, setIsValid, spents}) => {
     return (
         <header>
             <h1>
@@ -10,6 +10,7 @@ const Header = ({budget, setBudget, isValid, setIsValid}) => {
             {isValid ? (
                 <BudgetControl 
                     budget = {budget}
+                    spents = {spents}
                 />
                 ) : (
                 <NewBudget 
