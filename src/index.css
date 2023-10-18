@@ -106,6 +106,7 @@ header h1 {
     width: 90%;
     max-width: 80rem;
     margin: 0 auto;
+    padding-top: 4rem;
 }
 
 .container-budget {
@@ -139,20 +140,6 @@ header h1 {
     background-color: #fff;
     border-left: 5px solid #b91c1c;
     color: #b91c1c
-}
-
-.container {
-    width: 90%;
-    max-width: 80rem;
-    margin: 0 auto;
-}
-
-.container-budget{
-    margin-top: -5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transform: translateY(5rem);
 }
 
 .two-columns{
@@ -198,12 +185,13 @@ header h1 {
 
 .content-budget {
     width: 100%;
+    margin-left: 10rem;
 }
 
 .content-budget p{
     font-weight: 400;
     color: #64748b;
-    font-size: 2.4rem;
+    font-size: 3rem;
     text-align: justify;
 }
 
@@ -351,4 +339,32 @@ header h1 {
 .pin {
     overflow: hidden;
     height: 100vh;
+}
+
+.swipe-action__leading {
+    background-color: #3b82f6;
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+.swipe-action__trailing{
+    background-color: #db2777;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.swipeable-list .swipe-action{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.4rem;
+    text-align: right;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+    font-size: 1rem !important;
+}
+
+.circular-progressbar{
+    margin-left: 5rem;
 }

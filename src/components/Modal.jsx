@@ -1,21 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import closeBtn from '../img/cerrar.svg'
 import Message from './Message'
 
-const Modal = ({setModal, animateModal, setAnimateModal, keepSpent}) => {
+const Modal = ({setModal, animateModal, setAnimateModal, keepSpent, spentEdit, setSpentEdit}) => {
     
     const [form, setForm] = useState({
         name: "",
         quantity: 0,
         category: "",
+        id: "",
+        date: "",
     })
+
+    useEffect(() => {
+        if(Object.keys(spentEdit).length>0){
+            setForm({...spentEdit})
+          }
+    },[]);
 
     const [message, setMessage] = useState("")
     
     const closeModal = () => {
    
         setAnimateModal(false)
-
+        setSpentEdit({})
         setTimeout(() => {
             setModal(false)
         }, 500);
@@ -48,7 +56,7 @@ const Modal = ({setModal, animateModal, setAnimateModal, keepSpent}) => {
                 className={`form1 ${animateModal ? "animate" : "close"}`}
                 onSubmit= {handleSubmit}
             >
-                <legend>NEW SPENT</legend>
+                <legend>{spentEdit.name ? "Edit Spent" : "New Spent"}</legend>
                 {message && <Message type="error">{message}</Message>}
                 <div className="field">
                     <label htmlFor='name'>Spent Name</label>
@@ -61,7 +69,7 @@ const Modal = ({setModal, animateModal, setAnimateModal, keepSpent}) => {
                     />
                 </div>
                 <div className="field">
-                    <label htmlFor='Quantity'>Quantity</label>
+                    <label htmlFor='Quantity'>Quantity (Price)</label>
                     <input
                         id="Quantity"
                         type="number"
@@ -89,7 +97,7 @@ const Modal = ({setModal, animateModal, setAnimateModal, keepSpent}) => {
                 </div>
                 <input
                     type="submit"
-                    value="add"
+                    value={spentEdit.name ? "Edit Spent" : "Add Spent"}
                 />
             </form>
         </div>

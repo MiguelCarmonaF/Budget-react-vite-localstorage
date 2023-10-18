@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Modal from './components/Modal';
 import { generateID } from './helpers'; 
@@ -11,19 +11,41 @@ function App() {
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
   const [spents, setSpents] = useState([])
-  
-  const handleNewSpent = () => {
-    setModal(true);
+  const [spentEdit, setSpentEdit] = useState({})
 
+  useEffect(() => {
+      if(Object.keys(spentEdit).length>0){
+        setModal(true)
+        setTimeout(() => {
+          setAnimateModal(true);
+        }, 500)
+      }
+  }, [spentEdit])
+
+  const handleNewSpent = () => {
+    setModal(true)
+    setSpentEdit({})
     setTimeout(() => {
         setAnimateModal(true);
     }, 500)
   }
 
   const keepSpent = spent => {
-    spent.id = generateID();
-    spent.date = Date.now();
-    setSpents([...spents, spent,])
+    if (spent.id){
+      const editSpent = spents.map(edit => edit.id === spent.id ? spent : edit)
+      setSpents(editSpent)
+      setSpentEdit({})
+    } else {
+      spent.id = generateID();
+      spent.date = Date.now();
+      setSpents([...spents, spent,])
+    }
+  
+  }
+
+  const deleteSpent = id => {
+    const updatedSpents = spents.filter(spent => spent.id !== id);
+    setSpents(updatedSpents)
   }
 
   return (
@@ -39,8 +61,9 @@ function App() {
         <>
           <main>
             <ListSpent 
-              spents={spents}
-
+              spents = {spents}
+              setSpentEdit = {setSpentEdit}
+              deleteSpent = {deleteSpent}
             />
           </main>
           <div className="new-spent">
@@ -58,6 +81,8 @@ function App() {
                   animateModal={animateModal} 
                   setAnimateModal={setAnimateModal}
                   keepSpent= {keepSpent}
+                  spentEdit = {spentEdit}
+                  setSpentEdit = {setSpentEdit}
                 />}
     </div>
   )
