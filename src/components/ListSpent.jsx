@@ -9,7 +9,7 @@ const ListSpent = ({spents, setSpentEdit,deleteSpent, spentsFiltered, filter}) =
             { filter ? 
                 (
                     <>
-                        <h2>{spentsFiltered.length ? 'Gastos' : 'Ho hay gastos'}</h2>
+                        <h2>{spentsFiltered.length ? 'Expenses' : 'No expenses'}</h2>
                         {spentsFiltered.map (spent => (
                             <Spent
                                 key ={spent.id}
@@ -21,7 +21,7 @@ const ListSpent = ({spents, setSpentEdit,deleteSpent, spentsFiltered, filter}) =
                     </>
                 ) : (
                     <>
-                        <h2>{spents.length ? 'Gastos' : 'Ho hay gastos'}</h2>
+                        <h2>{spents.length ? 'Expenses' : 'No expenses'}</h2>
                         {spents.map (spent => (
                             <Spent
                                 key ={spent.id}
