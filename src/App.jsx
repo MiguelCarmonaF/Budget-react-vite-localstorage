@@ -4,14 +4,17 @@ import Modal from './components/Modal';
 import { generateID } from './helpers'; 
 import IconoNuevoGasto from './img/nuevo-gasto.svg'
 import ListSpent from './components/ListSpent';
+import Filters from './components/Filter'
 
 function App() {
-  const [budget, setBudget] = useState(0);
+  const [budget, setBudget] = useState(localStorage.getItem('budget') ?? 0);
   const [isValid, setIsValid] = useState(false);
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
-  const [spents, setSpents] = useState([])
+  const [spents, setSpents] = useState(localStorage.getItem('spents') ? JSON.parse(localStorage.getItem('spents')) : [])
   const [spentEdit, setSpentEdit] = useState({})
+  const [filter, setFilter] = useState('')
+  const [spentsFiltered, setSpentsFiltered] = useState([])
 
   useEffect(() => {
       if(Object.keys(spentEdit).length>0){
@@ -21,6 +24,29 @@ function App() {
         }, 500)
       }
   }, [spentEdit])
+
+  useEffect(() => {
+      Number(localStorage.setItem('budget', budget)) ?? 0
+  }, [budget])
+
+  useEffect(() => {
+    localStorage.setItem('spents', JSON.stringify(spents) ?? []);
+  },[spents])
+
+  useEffect(() => {
+    const budgetLS = Number(localStorage.getItem('budget')) ?? 0 ;
+    if (budgetLS>0){
+      setIsValid(true)
+    }
+
+  },[])
+
+  useEffect(() => {
+    if (filter){
+        const spentFilter = spents.filter (spent => spent.category===filter)
+        setSpentsFiltered(spentFilter)
+      }
+  }, [filter])
 
   const handleNewSpent = () => {
     setModal(true)
@@ -56,14 +82,21 @@ function App() {
         setBudget = {setBudget}
         isValid = {isValid}
         setIsValid = {setIsValid}
+        setSpents = {setSpents}
       />
       {isValid && (
         <>
           <main>
+            <Filters
+              filter = {filter}
+              setFilter = {setFilter}
+            />
             <ListSpent 
               spents = {spents}
               setSpentEdit = {setSpentEdit}
               deleteSpent = {deleteSpent}
+              filter={filter}
+              spentsFiltered={spentsFiltered}
             />
           </main>
           <div className="new-spent">

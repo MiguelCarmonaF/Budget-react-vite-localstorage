@@ -3,7 +3,7 @@ import {CircularProgressbar, buildStyles} from 'react-circular-progressbar'
 import "react-circular-progressbar/dist/styles.css"
 
 
-const BudgetControl = ({budget, spents}) => {
+const BudgetControl = ({budget, spents, setSpents, setBudget, setIsValid}) => {
     
     const [calculations, setCalculations ] = useState ({
         available: 0,
@@ -28,24 +28,36 @@ const BudgetControl = ({budget, spents}) => {
         })
     }
 
+    const handleResetApp = () => {
+        const resultado = confirm('Do you want to reset the app?')
+        if (resultado){
+            setSpents([])
+            setBudget([])
+            setIsValid(false)
+        } 
+    }
+
     return (
         <div className="container-budget container shadow two-columns">
             <div className='circular-progressbar'>
                 <CircularProgressbar
                     value={percentage}
                     styles={buildStyles ({
-                      pathColor: '#3B82F6',
+                      pathColor: percentage > 100 ? '#DC2626' : '#3B82F6',
                       trailColor: '#F5F5F5', 
-                      textColor: '#3B82F6',
+                      textColor: percentage > 100 ? '#DC2626' : '#3B82F6',
                     })}
                     text={`${percentage}% Used`}
                 />
             </div>
             <div className="content-budget">
+                <button className="reset-app" type="button" onClick={handleResetApp}>
+                    Reset App
+                </button>
                 <p>
                     <span>Budget:</span> {format(budget)}
                 </p>
-                <p>
+                <p className={`${calculations.available < 0 ? 'negative' : ''}`}>
                     <span>Available:</span> {format(calculations.available)}
                 </p>
                 <p>
